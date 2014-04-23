@@ -1,0 +1,11 @@
+{
+    "applications": {
+        "NBS": {
+            "applicationId": "jFusRcl6Pzh3OVbARHD8uJHJ1n7SyTPr6PoLFTUP", 
+            "masterKey": "KKCpdYritZz7uuEFi3wtrWFURu27xp3Aul2KILOF"
+        }, 
+        "_default": {
+            "link": "NBS"
+        }
+    }
+}

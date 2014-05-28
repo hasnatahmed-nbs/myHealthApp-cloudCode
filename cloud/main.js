@@ -173,6 +173,7 @@ Parse.Cloud.define("deleteUserContact", function(request, response) {
         vaccination.set("maker", request.params.maker);
         vaccination.set("lotNumber", request.params.lotNumber);
         vaccination.set("notes", request.params.notes);
+        medications.set("userId", request.params.userId);
         vaccination.save(null, {
             success: function(vaccination) {
                 response.success(vaccination);

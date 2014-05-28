@@ -167,7 +167,7 @@ Parse.Cloud.define("deleteUserContact", function(request, response) {
         var vaccination = Parse.Object.extend("Vaccination");
         var vaccination = new vaccination();
         vaccination.set("name", request.params.name);
-        vaccination.set("whenGiven", request.params.whenGiven);
+        vaccination.set("whenGiven", new Date(request.params.whenGiven));
         vaccination.set("sequence", request.params.sequence);
         vaccination.set("adverseEvent", request.params.adverseEvent);
         vaccination.set("maker", request.params.maker);

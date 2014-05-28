@@ -177,7 +177,7 @@ Parse.Cloud.define("deleteUserContact", function(request, response) {
             success: function(vaccination) {
                 response.success(vaccination);
             },
-            error: function(error) {
+            error: function(object,error) {
                 response.error(error);
             }
         });
@@ -192,23 +192,23 @@ Parse.Cloud.define("deleteUserContact", function(request, response) {
             success: function(results) {
                 response.success(results)
             },
-            error: function(error) {
+            error: function(object,error) {
                 response.error(error);
             }
         });
     });
 
-    Parse.Cloud.define("deleteUserVaccination", function(request, response) {
-   console.log(request.params.recordId)
-   var tableObject = Parse.Object.extend("Vaccination");
-   var query = new Parse.Query(tableObject);
-   query.get(request.params.recordId, {
-   success: function(record) {
-    record.destroy()
-    response.success(record);
-   },
-   error: function(object, error) {
-    response.error(error);
-  }
-  });
-});
+    Parse.Cloud.define("deleteUserCondition", function(request, response) {
+       console.log(request.params.recordId)
+       var tableObject = Parse.Object.extend("Conditions");
+       var query = new Parse.Query(tableObject);
+       query.get(request.params.recordId, {
+           success: function(record) {
+             record.destroy()
+             response.success(record);
+           },
+           error: function(object, error) {
+             response.error(error);
+          }
+       });
+    });

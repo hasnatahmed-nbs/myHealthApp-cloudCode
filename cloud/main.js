@@ -104,7 +104,6 @@ Parse.Cloud.define("signup", function(request, response) {
       }
     });
 });
-
 Parse.Cloud.define("addContact", function(request, response) {
   console.log(request.params)
     var medication = Parse.Object.extend("Contacts");
@@ -159,7 +158,42 @@ Parse.Cloud.define("deleteUserContact", function(request, response) {
     // The object was not retrieved successfully.
     // error is a Parse.Error with an error code and description.
   }
-});
+  });
 });
 
+//Cloud Code to add vaccination
+    Parse.Cloud.define("addVaccination", function(request, response) {
+        console.log(request.params)
+        var vaccination = Parse.Object.extend("Vaccination");
+        var vaccination = new vaccination();
+        vaccination.set("name", request.params.name);
+        vaccination.set("whenGiven", request.params.form);
+        vaccination.set("sequence", request.params.start);
+        vaccination.set("adverseEvent", request.params.reason);
+        vaccination.set("maker", request.params.end);
+        vaccination.set("lotNumber", request.params.dose);
+        vaccination.set("notes", request.params.tdoses);
+        vaccination.save(null, {
+            success: function(vaccination) {
+                response.success(vaccination);
+            },
+            error: function(error) {
+                response.error(error);
+            }
+        });
+    });
 
+    //Cloud Code to get vaccination
+    Parse.Cloud.define("getUserVaccinations", function(request, response) {
+        var query = new Parse.Query("Vaccination");
+        console.log(request.params.userId);
+        query.equalTo("userId", request.params.userId);
+        query.find({
+            success: function(results) {
+                response.success(results)
+            },
+            error: function(error) {
+                response.error(error);
+            }
+        });
+    });

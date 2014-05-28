@@ -148,15 +148,16 @@ Parse.Cloud.define("getUserContacts", function(request, response) {
 
 Parse.Cloud.define("deleteUserContact", function(request, response) {
    console.log(request.params.recordId)
-   var GameScore = Parse.Object.extend("Contacts");
-   var query = new Parse.Query(GameScore);
-   query.get("xWMyZ4YEGZ", {
-   success: function(gameScore) {
-    // The object was retrieved successfully.
+   var tableObject = Parse.Object.extend("Contacts");
+   var query = new Parse.Query(tableObject);
+   query.get(request.params.recordId, {
+   success: function(record) {
+    console.log("dlgdlkjfgdlksfgsdkfjg")
+    console.log(record.destroy())
+    response.success(record);
    },
    error: function(object, error) {
-    // The object was not retrieved successfully.
-    // error is a Parse.Error with an error code and description.
+    response.error(error);
   }
   });
 });

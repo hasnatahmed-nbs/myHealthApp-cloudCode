@@ -104,3 +104,62 @@ Parse.Cloud.define("signup", function(request, response) {
       }
     });
 });
+
+Parse.Cloud.define("addContact", function(request, response) {
+  console.log(request.params)
+    var medication = Parse.Object.extend("Contacts");
+    var medications = new medication();
+    medications.set("type", request.params.type);
+    medications.set("fullname", request.params.fullname);
+    medications.set("title", request.params.title);
+    medications.set("personalCell", request.params.personalCell);
+    medications.set("homeCell", request.params.homeCell);
+    medications.set("businessCell", request.params.businessCell);
+    medications.set("email", request.params.email);
+    medications.set("streetAddress", request.params.streetAddress);
+    medications.set("city", request.params.city);
+    medications.set("state", request.params.state);
+    medications.set("country", request.params.country);
+    medications.set("note", request.params.note);
+    medications.set("userId", request.params.userId);
+    medications.save(null, {
+      success: function(contact) {
+        response.success(contact);
+      },
+      error: function(error) {
+        response.error(error);
+      }
+    });
+});
+
+
+Parse.Cloud.define("getUserContacts", function(request, response) {
+   var query = new Parse.Query("Contacts");
+   console.log(request.params.userId)
+   query.equalTo("userId", request.params.userId);
+   query.find({
+    success: function(results) {
+      response.success(results)
+    },
+    error: function(error) {
+      response.error(error);
+    }
+  });
+});
+
+Parse.Cloud.define("deleteUserContact", function(request, response) {
+   console.log(request.params.recordId)
+   var GameScore = Parse.Object.extend("Contacts");
+   var query = new Parse.Query(GameScore);
+   query.get("xWMyZ4YEGZ", {
+   success: function(gameScore) {
+    // The object was retrieved successfully.
+   },
+   error: function(object, error) {
+    // The object was not retrieved successfully.
+    // error is a Parse.Error with an error code and description.
+  }
+});
+});
+
+

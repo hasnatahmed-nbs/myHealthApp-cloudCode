@@ -167,12 +167,12 @@ Parse.Cloud.define("deleteUserContact", function(request, response) {
         var vaccination = Parse.Object.extend("Vaccination");
         var vaccination = new vaccination();
         vaccination.set("name", request.params.name);
-        vaccination.set("whenGiven", request.params.form);
-        vaccination.set("sequence", request.params.start);
-        vaccination.set("adverseEvent", request.params.reason);
-        vaccination.set("maker", request.params.end);
-        vaccination.set("lotNumber", request.params.dose);
-        vaccination.set("notes", request.params.tdoses);
+        vaccination.set("whenGiven", request.params.whenGiven);
+        vaccination.set("sequence", request.params.sequence);
+        vaccination.set("adverseEvent", request.params.adverseEvent);
+        vaccination.set("maker", request.params.maker);
+        vaccination.set("lotNumber", request.params.lotNumber);
+        vaccination.set("notes", request.params.notes);
         vaccination.save(null, {
             success: function(vaccination) {
                 response.success(vaccination);

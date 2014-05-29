@@ -147,14 +147,30 @@ Parse.Cloud.define("getUserDetails", function(request, response) {
  query.get(request.params.recordId, {
    success: function(record) {
      response.success(record);
-     record[0].set("Phone_number","newphone")
-     record[0].save()
    },
    error: function(object, error) {
      response.error(error);
    }
  });
 });
+
+Parse.Cloud.define("updateUserDetails", function(request, response) {
+ console.log(request.params.recordId)
+ var tableObject = Parse.Object.extend("User");
+ var query = new Parse.Query(tableObject);
+ var phn="testing"
+ query.get(request.params.recordId, {
+   success: function(record) {
+     record.set("Phone_number","newphone")
+     record.save()
+     response.success(record);
+   },
+   error: function(object, error) {
+     response.error(error);
+   }
+ });
+});
+
 
 Parse.Cloud.define("signup", function(request, response) {
   var user = Parse.Object.extend("User");
@@ -315,7 +331,6 @@ Parse.Cloud.define("getUserVaccinations", function(request, response) {
 });
 
 
-
         /*Parse Code for INSURANCE Model*/
 
 Parse.Cloud.define("deleteUserInsurance", function(request, response) {
@@ -384,3 +399,4 @@ Parse.Cloud.define("getUserInsurances", function(request, response) {
     }
   });
 });
+

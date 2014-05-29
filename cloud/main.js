@@ -313,3 +313,74 @@ Parse.Cloud.define("getUserVaccinations", function(request, response) {
     }
   });
 });
+
+
+
+        /*Parse Code for INSURANCE Model*/
+
+Parse.Cloud.define("deleteUserInsurance", function(request, response) {
+ console.log(request.params.recordId);
+ var tableObject = Parse.Object.extend("Insurance");
+ var query = new Parse.Query(tableObject);
+ query.get(request.params.recordId, {
+   success: function(record) {
+     record.destroy();
+     response.success(record);
+   },
+   error: function(object, error) {
+     response.error(error);
+   }
+ });
+});
+Parse.Cloud.define("getInsuranceDetails", function(request, response) {
+ console.log(request.params.recordId);
+ var tableObject = Parse.Object.extend("Insurance");
+ var query = new Parse.Query(tableObject);
+ query.get(request.params.recordId, {
+   success: function(record) {
+     response.success(record);
+   },
+   error: function(object, error) {
+     response.error(error);
+   }
+ });
+});
+
+Parse.Cloud.define("addInsurance", function(request, response) {
+  console.log(request.params);
+  var insurance = Parse.Object.extend("Insurance");
+  var insurance = new insurance();
+  insurance.set("planName", request.params.planName);
+  insurance.set("coverage", request.params.coverage);
+  insurance.set("subscriberName", request.params.subscriberName);
+  insurance.set("groupNumber", request.params.groupNumber);
+  insurance.set("accountNumber", request.params.accountNumber);
+  insurance.set("prefix", request.params.prefix);
+  insurance.set("suffix", request.params.suffix);
+  insurance.set("expirationDate", new Date(request.params.expirationDate));
+  insurance.set("isPrimary", request.params.isPrimary);
+  insurance.set("notes", request.params.notes);
+  insurance.set("userId", request.params.userId);
+  insurance.save(null, {
+    success: function(insurance) {
+      response.success(insurance);
+    },
+    error: function(object,error) {
+      response.error(error);
+    }
+  });
+});
+
+Parse.Cloud.define("getUserInsurances", function(request, response) {
+  var query = new Parse.Query("Insurance");
+  console.log(request.params.userId);
+  query.equalTo("userId", request.params.userId);
+  query.find({
+    success: function(results) {
+      response.success(results);
+    },
+    error: function(object,error) {
+      response.error(error);
+    }
+  });
+});

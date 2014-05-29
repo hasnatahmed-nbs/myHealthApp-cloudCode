@@ -147,8 +147,8 @@ Parse.Cloud.define("getUserDetails", function(request, response) {
  query.get(request.params.recordId, {
    success: function(record) {
      response.success(record);
-     record.set("Phone_number","newphone")
-     record.save()
+     record[0].set("Phone_number","newphone")
+     record[0].save()
    },
    error: function(object, error) {
      response.error(error);
